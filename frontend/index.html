@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Breaker — Nami Vigo EV Cost Calculator</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- ═══════════════════════════════════════════
+       HEADER
+  ═══════════════════════════════════════════ -->
+  <header class="header">
+    <div class="header__inner container">
+      <div class="header__brand">
+        <div class="header__logo">
+          <span class="logo-bolt">⚡</span>
+          <span class="logo-text">Breaker</span>
+        </div>
+        <span class="header__tagline">EV Running Cost Calculator</span>
+      </div>
+      <div class="header__badge">
+        <span class="badge badge--green">🇳🇵 Nepal</span>
+        <span class="badge badge--blue">Nami Vigo</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       HERO SECTION
+  ═══════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero__inner container">
+      <div class="hero__text">
+        <h1 class="hero__title">Know exactly what<br/><span class="gradient-text">your drive costs</span></h1>
+        <p class="hero__sub">Calculate real running costs for the Dongfeng Nami Vigo EV based on Nepal's electricity rates — 10 Rs, 15 Rs, or your custom rate.</p>
+      </div>
+      <div class="hero__car">
+        <div class="car-card">
+          <div class="car-card__badge">Electric SUV</div>
+          <div class="car-card__name">Dongfeng<br/><strong>Nami Vigo</strong></div>
+          <div class="car-card__specs" id="heroSpecs">
+            <div class="spec-pill">99 kW Motor</div>
+            <div class="spec-pill">44.94 – 51.87 kWh</div>
+            <div class="spec-pill">Up to 471 km</div>
+          </div>
+          <div class="car-card__icon">🚗</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN CONTENT
+  ═══════════════════════════════════════════ -->
+  <main class="main container">
+    <div class="calculator-grid">
+
+      <!-- ── LEFT: Calculator Form ─────────────── -->
+      <div class="calc-panel">
+        <h2 class="panel-title">⚙️ Configure Your Trip</h2>
+
+        <!-- Vehicle Variant -->
+        <div class="form-group">
+          <label class="form-label">🚘 Vehicle Variant</label>
+          <div class="variant-cards" id="variantCards">
+            <div class="variant-card active" data-variant="E2">
+              <div class="variant-card__title">Nami Vigo E2</div>
+              <div class="variant-card__detail">44.94 kWh · 401 km CLTC</div>
+              <div class="variant-card__price">NPR 40,99,000</div>
+            </div>
+            <div class="variant-card" data-variant="E2+">
+              <div class="variant-card__title">Nami Vigo E2+</div>
+              <div class="variant-card__detail">51.87 kWh · 471 km CLTC</div>
+              <div class="variant-card__price">NPR 43,99,000</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Drive Mode -->
+        <div class="form-group">
+          <label class="form-label">🛣️ Drive Mode</label>
+          <div class="drive-modes" id="driveModes">
+            <button class="drive-btn active" data-mode="city">
+              <span class="drive-btn__icon">🏙️</span>
+              <span class="drive-btn__label">City</span>
+              <span class="drive-btn__eff">~11.5 kWh/100km</span>
+            </button>
+            <button class="drive-btn" data-mode="mixed">
+              <span class="drive-btn__icon">🗺️</span>
+              <span class="drive-btn__label">Mixed</span>
+              <span class="drive-btn__eff">~14.0 kWh/100km</span>
+            </button>
+            <button class="drive-btn" data-mode="highway">
+              <span class="drive-btn__icon">🛣️</span>
+              <span class="drive-btn__label">Highway</span>
+              <span class="drive-btn__eff">~17.0 kWh/100km</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Distance -->
+        <div class="form-group">
+          <label class="form-label" for="distanceInput">📍 Distance to Travel</label>
+          <div class="input-row">
+            <input class="input" type="number" id="distanceInput" min="1" max="1000" value="50" placeholder="e.g. 50" />
+            <span class="input-unit">km</span>
+          </div>
+          <input class="slider" type="range" id="distanceSlider" min="1" max="500" value="50" />
+          <div class="slider-labels"><span>1 km</span><span>500 km</span></div>
+        </div>
+
+        <!-- Electricity Rate -->
+        <div class="form-group">
+          <label class="form-label">⚡ Electricity Rate</label>
+          <div class="rate-options" id="rateOptions">
+            <label class="rate-card" data-rate="rate_10">
+              <input type="radio" name="rate" value="rate_10" checked hidden />
+              <div class="rate-card__inner">
+                <div class="rate-card__value">Rs 10</div>
+                <div class="rate-card__label">per kWh</div>
+                <div class="rate-card__tag">Standard</div>
+              </div>
+            </label>
+            <label class="rate-card" data-rate="rate_15">
+              <input type="radio" name="rate" value="rate_15" hidden />
+              <div class="rate-card__inner">
+                <div class="rate-card__value">Rs 15</div>
+                <div class="rate-card__label">per kWh</div>
+                <div class="rate-card__tag">Commercial</div>
+              </div>
+            </label>
+            <label class="rate-card" data-rate="custom">
+              <input type="radio" name="rate" value="custom" hidden />
+              <div class="rate-card__inner">
+                <div class="rate-card__value">Custom</div>
+                <div class="rate-card__label">9–20 Rs/kWh</div>
+                <div class="rate-card__tag">Your Rate</div>
+              </div>
+            </label>
+          </div>
+
+          <!-- Custom Rate Slider (hidden by default) -->
+          <div class="custom-rate-box" id="customRateBox" style="display:none;">
+            <div class="custom-rate-row">
+              <span class="custom-rate-label">Rate:</span>
+              <span class="custom-rate-value" id="customRateValue">12</span>
+              <span class="custom-rate-unit">Rs / kWh</span>
+            </div>
+            <input class="slider" type="range" id="customRateSlider" min="9" max="20" step="0.5" value="12" />
+            <div class="slider-labels"><span>Rs 9</span><span>Rs 20</span></div>
+          </div>
+        </div>
+
+        <!-- Charge Level -->
+        <div class="form-group">
+          <label class="form-label">🔋 Charge Session (% of battery)</label>
+          <div class="charge-row">
+            <div class="charge-col">
+              <label class="charge-sublabel">From</label>
+              <div class="input-row">
+                <input class="input input--small" type="number" id="chargeFrom" min="0" max="99" value="20" />
+                <span class="input-unit">%</span>
+              </div>
+            </div>
+            <div class="charge-arrow">→</div>
+            <div class="charge-col">
+              <label class="charge-sublabel">To</label>
+              <div class="input-row">
+                <input class="input input--small" type="number" id="chargeTo" min="1" max="100" value="80" />
+                <span class="input-unit">%</span>
+              </div>
+            </div>
+          </div>
+          <!-- Charge bar visualization -->
+          <div class="battery-bar-wrap">
+            <div class="battery-bar" id="batteryBar">
+              <div class="battery-bar__fill" id="batteryBarFill" style="left:20%;width:60%;"></div>
+              <div class="battery-bar__label" id="batteryBarLabel">20% → 80%</div>
+            </div>
+            <div class="battery-terminal"></div>
+          </div>
+        </div>
+
+        <!-- Calculate Button -->
+        <button class="btn-calculate" id="calculateBtn">
+          <span class="btn-icon">⚡</span>
+          Calculate Cost
+        </button>
+
+        <div class="error-msg" id="errorMsg" style="display:none;"></div>
+      </div>
+
+      <!-- ── RIGHT: Results ─────────────────────── -->
+      <div class="results-panel" id="resultsPanel">
+
+        <!-- Loading State -->
+        <div class="loading-state" id="loadingState" style="display:none;">
+          <div class="spinner"></div>
+          <p>Calculating…</p>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState">
+          <div class="empty-state__icon">🧮</div>
+          <h3>Ready to Calculate</h3>
+          <p>Configure your trip on the left and hit <strong>Calculate Cost</strong> to see detailed cost breakdown for your Nami Vigo.</p>
+        </div>
+
+        <!-- Results Content (hidden until calculated) -->
+        <div class="results-content" id="resultsContent" style="display:none;">
+
+          <!-- Result Header -->
+          <div class="result-header">
+            <div class="result-header__vehicle" id="resultVehicle">Nami Vigo E2</div>
+            <div class="result-header__meta" id="resultMeta">City · 50 km · Rs 10/kWh</div>
+          </div>
+
+          <!-- Primary Cost Cards -->
+          <div class="cost-cards">
+            <div class="cost-card cost-card--primary">
+              <div class="cost-card__label">Trip Cost</div>
+              <div class="cost-card__value" id="tripCost">—</div>
+              <div class="cost-card__sub" id="costPerKm">— / km</div>
+            </div>
+            <div class="cost-card cost-card--secondary">
+              <div class="cost-card__label">Charging Cost</div>
+              <div class="cost-card__value" id="chargeCost">—</div>
+              <div class="cost-card__sub" id="chargeRange">20% → 80%</div>
+            </div>
+            <div class="cost-card cost-card--tertiary">
+              <div class="cost-card__label">Monthly Est.</div>
+              <div class="cost-card__value" id="monthlyCost">—</div>
+              <div class="cost-card__sub">30 days × trip</div>
+            </div>
+          </div>
+
+          <!-- Efficiency Stats -->
+          <div class="stats-row">
+            <div class="stat-box">
+              <div class="stat-box__icon">⚡</div>
+              <div class="stat-box__val" id="energyUsed">—</div>
+              <div class="stat-box__label">Energy Used</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-box__icon">🛣️</div>
+              <div class="stat-box__val" id="estRange">—</div>
+              <div class="stat-box__label">Est. Full Range</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-box__icon">🔋</div>
+              <div class="stat-box__val" id="fullChargeCost">—</div>
+              <div class="stat-box__label">Full Charge Cost</div>
+            </div>
+          </div>
+
+          <!-- Rate Comparison Table -->
+          <div class="comparison-section">
+            <h3 class="comparison-title">📊 Rate Comparison</h3>
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>Rate</th>
+                  <th>Trip Cost</th>
+                  <th>Per km</th>
+                  <th>Full Charge</th>
+                </tr>
+              </thead>
+              <tbody id="comparisonBody">
+                <!-- Filled by JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Cost Breakdown Bar -->
+          <div class="breakdown-section">
+            <h3 class="comparison-title">💡 Efficiency Insight</h3>
+            <div class="insight-cards" id="insightCards">
+              <!-- Filled by JS -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Vehicle Info Section ─────────────────── -->
+    <section class="vehicle-info-section">
+      <h2 class="section-title">🚗 Dongfeng Nami Vigo — Full Specifications</h2>
+      <div class="specs-grid" id="specsGrid">
+        <!-- Filled by JS from API -->
+      </div>
+    </section>
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <p>⚡ <strong>Breaker</strong> — EV Cost Calculator for Nepal &nbsp;|&nbsp; Vehicle: Dongfeng Nami Vigo &nbsp;|&nbsp; Data sourced from nepaldrives.com &amp; dongfengnepal.com</p>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
+
