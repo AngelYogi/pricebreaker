@@ -4,7 +4,7 @@
  * Vehicle: Dongfeng Nami Vigo (Nepal)
  */
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "http://localhost:5001/api";
 
 // ─────────────────────────────────────────
 // State
@@ -286,7 +286,7 @@ async function runCalculation() {
 
   } catch (err) {
     setResultsView("empty");
-    showError("Cannot reach backend. Make sure the Python server is running on port 5000.");
+    showError("Cannot reach backend. Make sure the Python server is running on port 5001.");
   }
 }
 
